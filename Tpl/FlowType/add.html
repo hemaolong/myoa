@@ -1,0 +1,41 @@
+<layout name='Layout/layout_main' />
+<tagLib name="html" />
+<div class="contact">
+	<div class="row-fluid title"><span>新建流程类型</span></div>
+	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('flowType/insert')}">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+		<thead>
+			<tr>
+			    <td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			    <td>名称* <input type="text" id="name" name="name"  check="require"/></td>
+			</tr>
+			<tr>
+			    <td>描述* <textarea type="text" id="desc" name="desc"  check="require"/></textarea></td>
+			</tr>
+
+		</tbody>
+	</table>
+		<div class="action">
+			<input  class="btn" type="button" value="取消" onclick="go_return_url();">
+			<input class="btn default" type="submit" value="提 交" />
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.setting.js"></script>
+<script type="text/javascript">	
+	$(document).ready(function(){
+		$('#form_data').bind('submit', function(){
+			ajaxSubmit(this, function(data){
+				//alert('提交成功');
+			});
+			return false;
+		});
+		
+    });
+</script>

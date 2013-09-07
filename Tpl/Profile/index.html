@@ -1,0 +1,119 @@
+<layout name='Layout/layout_main' />
+<tagLib name="html" />
+<script type="text/javascript">
+
+	function reset_pwd(){
+		winopen("{:U('password')}", 400, 300);
+	}
+
+	function select_dept() {
+		winopen("{:U('dept/winpop2')}", 600, 400);
+	}
+
+	function save() {
+		$("#pic").val($("#save_name").val().split(";")[0]);
+		if(check_form("form_data")){
+			sendForm("form_data", "{:U('save')}","__URL__");
+		}
+	}
+
+	$(document).ready(function(){		
+		$(".input-date").datepicker();
+		set_return_url();
+	});
+
+</script>
+<div class="admin" >
+	<form method="post" action="" id="form_search" name="form_search">
+		<div class="row-fluid title">
+			<span>用户管理</span>
+		</div>
+	</form>
+	<div class="row-fluid operate" >
+		<div class="right">
+			<a onclick="reset_pwd()" class="btn">设置密码</a>
+			<a onclick="save()"  class="btn">保存</a>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<form id="form_data" name="form_data" method="post" >
+				<input type="hidden" id="save_name" name="save_name">
+				<input type="hidden" name="id" id="id" value="{$vo.id}">
+				<input type="hidden" name="pic" id="pic" >
+				<input type="hidden" name="ajax" id="ajax" value="0">
+				<input type="hidden" name="opmode" id="opmode" value="edit">
+				<table class="table table-bordered" >
+					<tr>
+						<th>
+							<nobr>员工编号</nobr>
+						</th>
+						<td>{$vo.emp_no}
+						</td>
+						<th rowspan="4">
+							照片
+							<br>(120*160)</th>
+						<td rowspan="3">
+							<img id="emp_pic" src="/{:C('SAVE_PATH')}{$vo.pic}" style="width:120px;height:160px"></td>
+					</tr>
+					<tr>
+						<th>姓名</th>
+						<td>
+							{$vo.name}</td>
+					</tr>
+					<tr>
+						<th>部门</th>
+						<td>
+							<div class="controls">
+								{$vo.dept_name}
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>电子邮箱</th>
+						<td>
+							<input type="text" id="email" name="email" check="email" msg="邮箱格式错误" value="{$vo.email}"></td>
+						<td>
+							<include file="Layout:uploader" />
+						</td>
+					</tr>
+					<tr>
+						<th>性别</th>
+						<td>
+							<select name="sex" id="sex" class="input-small">
+								<option  value="male">男</option>
+								<option value="female">女</option>
+							</select>
+						</td>
+						<th>生日</th>
+						<td>
+							<input type="text" id="birthday" name="birthday" readonly="readonly" class="input-date"></td>
+					</tr>
+					<tr>
+						<th>职级</th>
+						<td>
+								{$vo.rank_name}
+						</td>
+						<th>职位</th>
+						<td>
+								{$vo.position_name}
+						</td>
+					</tr>
+					<tr>
+						<th><nobr>负责业务</nobr></th>
+						<td colspan="3">
+							<input type="text" id="duty" name="duty" class="span12" value="{$vo.span12}"></td>
+					</tr>
+					<tr>
+						<th>办公室电话</th>
+						<td>
+							<input type="text" id="office_tel" name="office_tel" value="{$vo.office_tel}"></td>
+						<th>移动电话</th>
+						<td>
+							<input type="text" id="mobile_tel" name="mobile_tel" value="{$vo.mobile_tel}"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>

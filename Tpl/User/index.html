@@ -1,0 +1,65 @@
+<layout name='Layout/layout_main' />
+<tagLib name="html" />
+<script type="text/javascript">
+	function add() {
+		window.open("{:U('add')}", "_self");
+	}
+
+	function btn_search() {
+		$("#form_search").submit();
+	}
+
+	function move_to(val) {
+		var vars = $("#form_data").serialize();
+		sendAjax("{:U('mark')}", 'val=' + val + '&' + vars);
+		$("input[name='flow_type_id[]']:checkbox:checked").each(function() {
+			$(this).parent().next().find("nobr").text(val);
+			$(this).attr("checked", false);
+		})
+	}
+
+	$(document).ready(function() {
+		set_return_url();
+	}); 
+</script>
+<div class="flowphase">
+	<form id="form_search" name="form_search" method='post'>
+		<div class="row-fluid title">
+			<span>用户管理</span>
+			<span>
+			<div class="input-append right">
+				<input type="text"  onkeydown="key_search();" name="keyword">
+				<a class="btn" type="button" onclick="btn_search();"> <i class="icon-search"></i>
+				</a>
+			</div>
+			
+			<a  onclick="add();" class="btn">新建</a>
+		</div>
+	</form>
+	<!-- 功能操作区域结束 -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+		<thead>
+			<tr align="center">
+				<td>编号</td>
+				<td>账号</td>
+				<td>真实姓名</td>
+				<td>email</td>
+				<td>创建日期</td>
+				<td>最后一次登录</td>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="sql">
+				<tr align="center">
+				    <td>{$sql.id}</td>
+					<td>{$sql.emp_no}</td>
+					<td>{$sql.emp_name}</td>
+					<td>{$sql.email}</td>
+					<td>{$sql.create_time}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+
+<!--<include file="Layout:uploader" />-->

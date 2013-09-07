@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='utf-8' />
+	<title>OA</title>
+	<meta content='' name='description' />
+	<meta content='' name='author' />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap -->
+	<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet" >
+	<link href="__PUBLIC__/css/font-awesome.min.css" rel="stylesheet" >
+
+	<!--[if IE 7]>
+		<link  href="__PUBLIC__/css/font-awesome-ie7.min.css" rel="stylesheet">
+	<![endif]-->
+
+	<!--[if lt IE 9]>
+		<link type="text/css" href="__PUBLIC__/css/custom-theme/jquery.ui.1.9.2.ie.css"  rel="stylesheet" />
+	<![endif]-->
+
+	<link href="__PUBLIC__/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="__PUBLIC__/css/test.css" rel="stylesheet">
+	<script src="__PUBLIC__/js/jquery.js"></script>
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="__PUBLIC__/js/html5shiv.js"></script>
+	<script src="__PUBLIC__/js/respond.min.js"></script>
+	<![endif]-->
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?2a935166b0c9b73fef3c8bae58b95fe4";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+</head>
+<body class="login">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12 margin-top hidden-phone"></div>
+		</div>
+		<div class="row-fluid">
+			<div class="span1"></div>
+			<div class="span7 hidden-phone">
+				<div class="img"></div>
+			</div>
+			<div class="span3">
+				<div style="margin-bottom:44px">
+					<h1>{:get_system_config("SYSTEM_NAME")} </h1>
+				</div>
+				<form method="post" id="form_login">
+					<label for="emp_no">帐号:</label>
+					<input type="text" id="emp_no" name="emp_no"  check="require" msg="请输入帐号:">
+					<label for="password">密码:</label>
+					<input type="password" id="password" name="password" check="require" msg="请输入密码" >
+					<br>
+					<input type="button" value="登录" onclick="login();" class="btn"></form>
+				<span>用户名：admin 密码：admin</span>
+			</div>
+			<div class="span1"></div>
+		</div>
+		<div class="row-fluid">
+			<div class="span1"></div>
+			<div class="span7">
+				<span>OA</span>
+			</div>
+			<div class="span3">
+				<span>
+					<a href="">帮助中心</a>
+				</span>
+				<span>
+					<a href="">反馈</a>
+				</span>
+			</div>
+		</div>
+	</div>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript">
+		function login(){
+			if (check_form("form_login")){
+				$("#form_login").attr("action", "{:U('login/check_login')}");
+				$("#form_login").submit();
+			}
+		}
+
+		$(document).ready(function(){
+			$("#password").keydown(function(event){
+				if (event.keyCode == 13){
+					if (check_form("form_login")) {
+						sendForm("form_login", "{:U('login/check_login')}");
+						return false;
+					}
+				}
+			})
+		})
+		</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<layout name='Layout/layout_main' />
+<script type="text/javascript">
+	$(document).ready(function(){
+		set_return_url();
+		$(".input-date").datepicker();
+	}); 
+</script>
+<div class="flow">
+	<form id="form_search" method='post' >
+		<input type="hidden" name="fid" id="fid" value="{$folder_id}">
+		<div class="row-fluid title">
+			<span>{$folder_name}</span>
+			<div class="input-append right">
+				<input type="text"  onkeydown="key_search();" name="keyword">
+				<a class="btn" type="button" onclick="btn_search();"> <i class="icon-search"></i>
+				</a>
+				<a class="btn" onclick="open_search();"> <i class="icon-angle-down"></i>
+				</a>
+			</div>
+		</div>
+		<div class="row-fluid adv_search">
+			<div class="row-fluid adv_search_head">
+				<h4 class="left">高级搜索</h4>
+				<div class="right text-right">
+					<a  class="btn" onclick="adv_search();">搜索</a>
+					<a  class="btn" onclick="close_search();">关闭</a>
+				</div>
+			</div>
+			<div class="row-fluid form-horizontal">
+				<div class="control-group span6">
+					<label class="control-label" for="li_title">标题：</label>
+					<div class="controls">
+						<input type="text" id="li_title" name="li_title"></div>
+				</div>
+				<div class="control-group span6">
+					<label class="control-label" for="li_content">内容：</label>
+					<div class="controls">
+						<input type="text" id="li_content" name="li_content" ></div>
+				</div>
+			</div>
+			<div class="row-fluid form-horizontal">
+				<div class="control-group span6">
+					<label class="control-label" for="eq_user_name">登录人：</label>
+					<div class="controls">
+						<input type="text" id="eq_user_name" name="eq_user_name"></div>
+				</div>
+				<div class="control-group span6">
+					<label class="control-label" for="be_create_time">登录时间：</label>
+					<div class="controls">
+						<input  type="text" name="be_create_time" id="be_create_time" class="input-date" readonly="readonly">
+						&nbsp;~&nbsp;
+						<input type="text" name="en_create_time" id="en_create_time" readonly="readonly" class="input-date" ></div>
+				</div>
+			</div>
+			</div>
+	</form>
+	 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+		<thead>
+			<tr>
+			    <td></td>
+				<td>编号</td>
+				<td>名称</td>
+				<td>责任人</td>
+				<td>输入</td>
+				<td>输出</td>
+				<td>描述</td>
+				<td>状态</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			    <td></td>
+				<td>编号1</td>
+				<td>名称1</td>
+				<td>责任人1</td>
+				<td>输入1</td>
+				<td>输出1</td>
+				<td>描述1</td>
+				<td>正在进行</td>
+			</tr>
+			<tr>
+			    <td></td>
+				<td>编号2</td>
+				<td>名称2</td>
+				<td>责任人2</td>
+				<td>输入2</td>
+				<td>输出2</td>
+				<td>描述2</td>
+				<td>等待审核</td>
+			</tr>
+			<tr>
+			    <td></td>
+				<td>编号2</td>
+				<td>名称2</td>
+				<td>责任人2</td>
+				<td>输入2</td>
+				<td>输出2</td>
+				<td>描述2</td>
+				<td>结案</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="page">
+	{$page}
+</div>
+</if>
+</div>

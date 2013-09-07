@@ -1,0 +1,43 @@
+<layout name='Layout/layout_main' />
+<script type="text/javascript">
+
+</script>
+<div class="admin" >
+	<form method="post" action="" id="form_search" name="form_search">
+		<div class="row-fluid title">
+			<span>系统信息</span>
+		</div>
+	</form>
+	<div class="row-fluid" >
+		<div class="right">
+			<a onclick="save()" class="btn">保存</a>
+		</div>
+	</div>
+	<form id="form_data" name="form_data"method="post" action="">
+		<div class="row-fluid form_box">
+			<div class="row-fluid form-horizontal">
+				<div class="control-group span12">
+					<label class="control-label" for="name">机器特征码：</label>
+					<div class="controls ">
+						{$feature_code}
+					</div>
+				</div>
+			<div class="row-fluid form-horizontal">
+				<div class="control-group span12">
+					<label class="control-label" for="name">注册码*：</label>
+					<div class="controls ">
+						<input type="text" name="reg_code" class="span12">
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid form-horizontal">
+				<div class="control-group span12">
+					<label class="control-label" for="name">授权状态*：</label>
+					<div class="controls ">
+						成功
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
