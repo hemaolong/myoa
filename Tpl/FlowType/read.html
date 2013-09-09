@@ -1,56 +1,77 @@
 <layout name='Layout/layout_main' />
-<script type="text/javascript">
-	function edit() {
-		window.location = "{:U('edit?id='.$vo['id'])}";
-	}
-</script>
-<input type="hidden" id="ajax" name="ajax" value="1">
+<tagLib name="html" />
 <div class="contact">
-	<div class="row-fluid title"><span>详细信息 : {$vo.name}</span></div>
-	<div class="operate">
-		<div class="left">
-			<a onclick="go_return_url();">返回</a>
+	<div class="row-fluid title"><span></span></div>
+	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('flowType/insert')}">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+			<thead>
+				<tr>
+					<td width="140">ID</td>
+					<td>name</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>发包审核人</td>
+					<td>{$fb_check_name}</td>
+				</tr>
+				<tr>
+					<td>初样审核人</td>
+					<td>{$cy_check_name}</td>
+				</tr>
+				<tr>
+					<td>客户审核人</td>
+					<td>{$kh_check_name}</td>
+				</tr>
+				<tr>
+					<td>描述*</td>
+					<td>disc</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="action">
+			<input class="btn default" type="button" value="修改" onclick="edit();">
+			<input class="btn default" type="button" value="将状态改为" onclick="edit();">
+			<select>
+				<option>
+				<option>
+			</select>
 		</div>
-		<div class="right">
-			<a onclick="edit();">修改</a>
-		</div>
-	</div>
-	<table style="width:100%;">
-		<tr>
-			<th style="width:17%" > 姓名： </th>
-			<td style="width:33%"> {$vo.name} </td>
-			<th style="width:17%" > 公司： </th>
-			<td  style="width:33%"> {$vo.company} </td>
-		</tr>
-		<tr>
-			<th > 部门： </th>
-			<td > {$vo.dept} </td>
-			<th> 职位： </th>
-			<td > {$vo.position} </td>
-		</tr>
-		<tr>
-			<th > 办公电话： </th>
-			<td > {$vo.office_tel} </td>
-			<th > 手机： </th>
-			<td > {$vo.mobile_tel} </td>
-		</tr>
-		<tr>
-			<th > 邮件： </th>
-			<td > {$vo.email} </td>
-			<th> MSN/QQ： </th>
-			<td > {$vo.im} </td>
-		</tr>
-		<tr>
-			<th> 网址： </th>
-			<td> {$vo.website} </td>
-			<th> 分组 </th>
-			<td> {$vo.group} </td>
-		</tr>
-		<tr>
-			<th > 备  注： </th>
-			<td  colspan="3">			<textarea name="remark" rows="5" style="width:100%" readonly> {$vo.remark}
-							</textarea></td>
-		</tr>
-	</table>
+		
+		<div class="row-fluid title"><span>历史</span></div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+			<thead>
+				<tr>
+					<td width="140">时间</td>
+					<td>账号<td>
+					<td>操作<td>
+					<td>改变<td>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="history" id="h">
+					<tr>
+						<td>{$h['date']|toDate}<td>
+						<td>{$h['user']}<td>
+						<td>{$h['opt_type']}<td>
+						<td>{$h['param']}<td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</form>
 </div>
-</div>
+
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.setting.js"></script>
+<script type="text/javascript">	
+	$(document).ready(function(){
+		$('#form_data').bind('submit', function(){
+			ajaxSubmit(this, function(data){
+				//alert('提交成功');
+			});
+			return false;
+		});
+		
+    });
+</script>

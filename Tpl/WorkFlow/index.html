@@ -1,4 +1,5 @@
 <layout name='Layout/layout_main' />
+<tagLib name="html" />
 <script type="text/javascript">
 	function add() {
 		window.open("{:U('add')}", "_self");
@@ -8,15 +9,6 @@
 		$("#form_search").submit();
 	}
 
-	function move_to(val) {
-		var vars = $("#form_data").serialize();
-		sendAjax("{:U('mark')}", 'val=' + val + '&' + vars);
-		$("input[name='flow_type_id[]']:checkbox:checked").each(function() {
-			$(this).parent().next().find("nobr").text(val);
-			$(this).attr("checked", false);
-		})
-	}
-
 	$(document).ready(function() {
 		set_return_url();
 	}); 
@@ -24,7 +16,7 @@
 <div class="flowphase">
 	<form id="form_search" name="form_search" method='post'>
 		<div class="row-fluid title">
-			<span>环节管理</span>
+			<span>工作流</span>
 			<span>
 			<div class="input-append right">
 				<input type="text"  onkeydown="key_search();" name="keyword">
@@ -32,26 +24,32 @@
 				</a>
 			</div>
 			
-			<a  onclick="add();" class="btn">新建</a>
+			<a  onclick="add();" class="btn">保存</a>
 		</div>
 	</form>
 	<!-- 功能操作区域结束 -->
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 		<thead>
 			<tr align="center">
-				<td>编号</td>
-				<td>名称</td>
-				<td>描述</td>
+				<td>当前状态</td>
+				<volist name="states" id="s">
+					<td>{$s['label']}</td>
+				</volist>
 			</tr>
 		</thead>
 		<tbody>
-			<volist name="list" id="sql">
-				<tr align="center">
-				    <td><a href="{:U('read?id='.$sql['id'])}" class="data wrap">{$sql.id}</a></td>
-					<td>{$sql.name}</td>
-					<td>{$sql.description}</td>
-				</tr>
+			<volist name="states" id="s">
+			    <tr align="center>
+				    <td>{$s['label']}</td>
+					<volist name="states" id="ss">
+						<td>
+							<input type="checkbox" name="tag[]" value="{$ss['value']}">{$ss['value']}</input>
+						</td>
+					</volist>
+				<tr>
 			</volist>
 		</tbody>
 	</table>
 </div>
+
+<!--<include file="Layout:uploader" />-->

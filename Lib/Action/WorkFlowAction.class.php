@@ -1,6 +1,6 @@
 <?php
 // 后台用户模块
-class UserAction extends CommonAction {
+class WorkFlowAction extends CommonAction {
 	protected $config=array('app_type'=>'master');
 	
 	function _search_filter(&$map) {
@@ -10,21 +10,8 @@ class UserAction extends CommonAction {
 	}
 
 	public function _before_index() {
-		$model = M("Position");
-		$list = $model -> where('is_del=0') -> order('sort asc') -> getField('id,name');
-		$this -> assign('position_list', $list);
-
-		$model = M("Rank");
-		$list = $model -> where('is_del=0') -> order('sort asc') -> getField('id,name');
-		$this -> assign('rank_list', $list);
-
-		$model = M("Dept");
-		$list = $model -> where('is_del=0') -> order('sort asc') -> getField('id,name');
-		$this -> assign('dept_list', $list);
-
-		$model = M("Rank");
-		$list = $model -> where('is_del=0') -> order('sort asc') -> getField('id,name');
-		$this -> assign('rank_list', $list);
+		$states = getFlowStates();
+		$this -> assign('states', $states);
 	}
 
 	// 检查帐号

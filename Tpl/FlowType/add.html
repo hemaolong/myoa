@@ -14,13 +14,44 @@
 			    <td>名称* <input type="text" id="name" name="name"  check="require"/></td>
 			</tr>
 			<tr>
+			    <td>发包审核人* 
+					<select type="text" id="fb_check" name="fb_check"  check="require"/>
+						<volist name="ulist" id="u">
+							<option value="{$u['id']}">
+								{$u['emp_no']}
+							</option>
+						</volist>
+					</select>
+				</td>
+			</tr>
+			<tr>
+			    <td>初样审核人* 
+					<select type="text" id="cy_check" name="cy_check"  check="require"/>
+						<volist name="ulist" id="u">
+							<option value="{$u['id']}">
+								{$u['emp_no']}
+							</option>
+						</volist>
+					</select>
+				</td>
+			</tr>
+			<tr>
+			    <td>客户审核人* 
+					<select type="text" id="kh_check" name="kh_check"  check="require"/>
+						<volist name="ulist" id="u">
+							<option value="{$u['id']}">
+								{$u['emp_no']}
+							</option>
+						</volist>
+					</select>
+				</td>
+			</tr>
+			<tr>
 			    <td>描述* <textarea type="text" id="desc" name="desc"  check="require"/></textarea></td>
 			</tr>
-
 		</tbody>
 	</table>
 		<div class="action">
-			<input  class="btn" type="button" value="取消" onclick="go_return_url();">
 			<input class="btn default" type="submit" value="提 交" />
 		</div>
 	</form>

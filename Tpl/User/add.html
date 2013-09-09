@@ -1,0 +1,51 @@
+<layout name='Layout/layout_main' />
+
+<div class="contact">
+	<div class="row-fluid title"><span>创建账号</span></div>
+	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('user/insert')}">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+			<thead>
+				<tr>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>账号* <input type="text" id="name" name="name"  check="require"/></td>
+				</tr>
+				<tr>
+					<td>真实姓名* <input type="text" id="real_name" name="real_name"  check="require"/></td>
+				</tr>
+				<tr>
+					<td>Email* <input type="text" id="email" name="email"  check="require"/></td>
+				</tr>
+				<tr>
+					<td>存取权限* 
+						<select type="text" id="priority" name="priority"  check="require">
+						    {$dummy|getPriorityList}
+						</select>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+		<div class="action">
+			<input class="btn default" type="submit" value="提 交" onclick="save();/>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/editor/kindeditor.setting.js"></script>
+<script type="text/javascript">	
+	$(document).ready(function(){
+		$('#form_data').bind('submit', function(){
+			ajaxSubmit(this, function(data){
+				//alert('提交成功');
+			});
+			return false;
+		});
+		
+    });
+	
+</script>

@@ -29,7 +29,14 @@
 			'SAVE_PATH'=>'Data/Files/',
         'SHOW_PAGE_TRACE'=>true, //显示调试信息
  		'AUTH'=>array('index'=>'read','read'=>'read','down'=>'read','add'=>'write',
-		'edit'=>'write','save'=>'write','del'=>'admin','rstore'=>'admin','destory'=>'admin'),    );
+		'edit'=>'write','save'=>'write','del'=>'admin','rstore'=>'admin','destory'=>'admin'),    
+		
+		'HISTORY_OPT_TYPE' => array('OPT_NEW' => array(1, "立项"),
+								'OPT_CANCEL' => array(2, "终止"),
+								'OPT_CHG_STATE' => array(3, "修改状态"),
+								'OPT_CLOSE' => array(10, "结案"),
+							),
+		);
     return $array;
 ?>
  
