@@ -48,6 +48,7 @@ class FlowTypeAction extends CommonAction {
 		
 		$history = D("ProjectHistory")->getHistory($id);
 		$this->assign("flow", $f_m);
+		$this->assign("state", getFlowStateById($f_m['state']));
 		$this->assign("history", $history);
 		$this->assign("fb_check_name", $fb_check_name['emp_no']);
 		$this->assign("cy_check_name", $cy_check_name['emp_no']);
@@ -75,6 +76,7 @@ class FlowTypeAction extends CommonAction {
 		$model->fb_check = $_POST['fb_check'];
 		$model->fb_check = $_POST['fb_check'];
 		$model->kh_check = $_POST['kh_check'];
+		$model->state = 10;
 		
 		$model -> creator = $user_name;
 		//保存当前数据对象

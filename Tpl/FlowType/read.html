@@ -24,7 +24,11 @@
 					<td>{$kh_check_name}</td>
 				</tr>
 				<tr>
-					<td>描述*</td>
+					<td>状态</td>
+					<td>{$state.label}</td>
+				</tr>
+				<tr>
+					<td>描述</td>
 					<td>disc</td>
 				</tr>
 			</tbody>
@@ -33,8 +37,7 @@
 			<input class="btn default" type="button" value="修改" onclick="edit();">
 			<input class="btn default" type="button" value="将状态改为" onclick="edit();">
 			<select>
-				<option>
-				<option>
+				{$state.value|getStateList}
 			</select>
 		</div>
 		

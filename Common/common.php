@@ -1098,6 +1098,16 @@ function getFlowStates(){
 	return $l;
 }
 
+function getFlowStateById($id){
+	$l = getFlowStates();
+	for ($i = 0; $i < count($l); $i++){
+		$item = $l[$i];
+		if ($item['value'] == $id){
+			return $item;
+		}
+	}
+}
+
 function getNextState($state){
     $l = array(
 	    '10' => array(11, 20),
@@ -1112,6 +1122,9 @@ function getNextState($state){
 		'100' => array(11, 110),
 		'110' => array(),
 	);
+	
+	$ns = $l[$state];
+	return $ns;
 }
 
 function getPrioritys(){
@@ -1121,6 +1134,12 @@ function getPrioritys(){
 		array('value' => 100, 'label' => '管理员'), 
 	);
 	return $l;
+}
+
+function getStateList($state){dump('sfsf');
+	$ns = getNextState($state);
+	$r = array();
+	return getOptionList($ns);
 }
 
 function getPriorityList(){
