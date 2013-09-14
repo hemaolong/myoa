@@ -5,7 +5,7 @@
 *.ear 
 misc/target
 .*
-Common
+#Common
 Data
 Public
 Runtime

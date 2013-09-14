@@ -41,8 +41,8 @@
 		<div class="row-fluid title"><span>历史</span></div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 			<thead>
-				<tr>
-					<td width="140">时间</td>
+				<tr align="center">
+					<td width="200">时间</td>
 					<td>账号<td>
 					<td>操作<td>
 					<td>改变<td>
@@ -50,9 +50,9 @@
 			</thead>
 			<tbody>
 				<volist name="history" id="h">
-					<tr>
-						<td>{$h['date']|toDate}<td>
-						<td>{$h['user']}<td>
+					<tr align="center">
+						<td>{$h['opt_date']|toDate}<td>
+						<td>{$h['emp_no']}<td>
 						<td>{$h['opt_type']}<td>
 						<td>{$h['param']}<td>
 					</tr>

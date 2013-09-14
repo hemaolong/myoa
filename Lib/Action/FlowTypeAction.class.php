@@ -46,7 +46,9 @@ class FlowTypeAction extends CommonAction {
 		$kh_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['kh_check']))->find();
 		//dump($fb_check_name);
 		
+		$history = D("ProjectHistory")->getHistory($id);
 		$this->assign("flow", $f_m);
+		$this->assign("history", $history);
 		$this->assign("fb_check_name", $fb_check_name['emp_no']);
 		$this->assign("cy_check_name", $cy_check_name['emp_no']);
 		$this->assign("kh_check_name", $kh_check_name['emp_no']);

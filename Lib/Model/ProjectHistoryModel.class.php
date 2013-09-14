@@ -12,6 +12,15 @@ class ProjectHistoryModel extends CommonModel {
 		$this->add();
 	}
 	
+	public function getHistory($project_id){
+		$join = ' join ' . $this->tablePrefix . 'user as u on user_id = u.id';
+		dump($join);
+		dump($this->join($join)
+			->where(array('project_id' => $project_id))
+			->field('id, user_id, u.id, project_id, opt_date, opt_type, old_value, new_value')
+			->select());
+	}
+	
 	
 	private function getHistoryOptType($type){
 	  $history_opt_type = C('HISTORY_OPT_TYPE');
