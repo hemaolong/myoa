@@ -48,11 +48,33 @@ class FlowTypeAction extends CommonAction {
 		
 		$history = D("ProjectHistory")->getHistory($id);
 		$this->assign("flow", $f_m);
+		$this->assign("flow_id", $id);
 		$this->assign("state", getFlowStateById($f_m['state']));
 		$this->assign("history", $history);
 		$this->assign("fb_check_name", $fb_check_name['emp_no']);
 		$this->assign("cy_check_name", $cy_check_name['emp_no']);
 		$this->assign("kh_check_name", $kh_check_name['emp_no']);
+	}
+	
+	function _before_edit(){
+		$id = $_REQUEST["id"];
+		$where_f['id'] = $id;
+		$model =  M('flow_type');
+		$f_m = $model->where($where_f)->find();
+		$fb_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['fb_check']))->find();
+		$cy_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['cy_check']))->find();
+		$kh_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['kh_check']))->find();
+		
+		$this->assign("flow", $f_m);
+		$this->assign("flow_id", $id);
+		$this->assign("state", getFlowStateById($f_m['state']));
+		$this->assign("fb_check_name", $fb_check_name['emp_no']);
+		$this->assign("cy_check_name", $cy_check_name['emp_no']);
+		$this->assign("kh_check_name", $kh_check_name['emp_no']);
+		
+		$u_model = D('user');
+		$user_list = $u_model->field('emp_no, id')->select();
+		$this->assign("ulist", $user_list);
 	}
 
 	function add() {

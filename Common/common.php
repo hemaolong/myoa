@@ -1078,6 +1078,7 @@ function getOption(&$list){
 }
 
 function getFlowStates(){
+    // value 不能修改
 	$l = array(
 		array('value' => 10, 'label' => '立项'), 
 		array('value' => 11, 'label' => '终止'), 
@@ -1136,10 +1137,14 @@ function getPrioritys(){
 	return $l;
 }
 
-function getStateList($state){dump('sfsf');
+function getNextStateList($state){
 	$ns = getNextState($state);
 	$r = array();
-	return getOptionList($ns);
+	for ($i = 0; $i < count($ns); $i++){
+	    $r[$i] = getFlowStateById($ns[$i]);
+	}
+	$nl = getOptionList($r);
+	return $nl;
 }
 
 function getPriorityList(){
@@ -1150,5 +1155,28 @@ function getPriorityList(){
 function getPriorityOption($value){
 	$list = getPrioritys();
 	return getOption($list);
+}
+
+function getHistoryOptType($type){
+  $history_opt_type = C('HISTORY_OPT_TYPE');
+  $typeKeys = array_keys($history_opt_type);
+  for ($i = 0, $c = count($history_opt_type); $i < $c; $i++){
+	 if ($typeKeys[$i] == $type){
+		$t = $history_opt_type[$type];
+		return $t[0];
+	 }
+  }
+}
+
+function getHistoryOptTypeById($type){
+  $history_opt_type = C('HISTORY_OPT_TYPE');
+  $typeKeys = array_keys($history_opt_type);
+  for ($i = 0, $c = count($history_opt_type); $i < $c; $i++){
+	 $key = $typeKeys[$i];
+	 $value = $history_opt_type[$key];
+	 if ($value[0] == $type){
+		return $value[1];
+	 }
+  }
 }
 ?>

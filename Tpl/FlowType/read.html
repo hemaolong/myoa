@@ -6,8 +6,8 @@
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 			<thead>
 				<tr>
-					<td width="140">ID</td>
-					<td>name</td>
+					<td width="140"> </td>
+					<td> </td>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,10 +34,10 @@
 			</tbody>
 		</table>
 		<div class="action">
-			<input class="btn default" type="button" value="修改" onclick="edit();">
+		    <a href="{:U('edit?id='.$flow_id)}" class="data wrap">修改</a>
 			<input class="btn default" type="button" value="将状态改为" onclick="edit();">
 			<select>
-				{$state.value|getStateList}
+				{$state.value|getNextStateList}
 			</select>
 		</div>
 		
@@ -46,18 +46,18 @@
 			<thead>
 				<tr align="center">
 					<td width="200">时间</td>
-					<td>账号<td>
-					<td>操作<td>
-					<td>改变<td>
+					<td>账号</td>
+					<td>操作</td>
+					<td>改变</td>
 				</tr>
 			</thead>
 			<tbody>
 				<volist name="history" id="h">
 					<tr align="center">
-						<td>{$h['opt_date']|toDate}<td>
-						<td>{$h['emp_no']}<td>
-						<td>{$h['opt_type']}<td>
-						<td>{$h['param']}<td>
+						<td>{$h['opt_date']|toDate}</td>
+						<td>{$h['emp_no']}</td>
+						<td>{$h['opt_type']|getHistoryOptTypeById}</td>
+						<td>{$h['param']}</td>
 					</tr>
 				</volist>
 			</tbody>
