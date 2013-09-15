@@ -2,11 +2,13 @@
 <tagLib name="html" />
 <div class="contact">
 	<div class="row-fluid title"><span>编辑</span></div>
-	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('flowType/submit_update')}">
+	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('flowType/submit_switch')}">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 		<thead>
 			<tr>
-			     <td width=140></td>
+			    <td width=140></td>
+				<td></td>
+				<td></td>
 				<td></td>
 			</tr>
 		</thead>
@@ -16,45 +18,28 @@
 				<td>{$flow_id}</td>
 			</tr>
 			<tr>
-			    <td>状态</td>
+				<td>名称</td>
+			    <td>{$flow.name}</td>
+			</tr>
+			<tr>
+			    <td width = 40>当前状态</td>
+				<td width="60">{$state.label}</td>
+				<td>切换为</td>
 				<td>{$state.label}</td>
 			</tr>
+			
 			<tr>
-				<td>名称</td>
-			    <td><input type="text" id="name" name="name" value="{$flow.name}"/></td>
+			    <td>输入文档</td>
+			    <td><textarea type="text" id="desc" name="desc"/>{$flow.description}</textarea></td>
 			</tr>
 			<tr>
-			    <td>发包审核人 </td>
-			    <td>
-					<select type="text" id="fb_check" name="fb_check"/>
-						{$ulist, $fb_check.id|getUserList}
-					</select>
-				</td>
-			</tr>
-			<tr>
-			    <td>初样审核人</td>
-			    <td>
-					<select type="text" id="cy_check" name="cy_check"/>
-						{$ulist, $cy_check.id|getUserList}
-					</select>
-				</td>
-			</tr>
-			<tr>
-			    <td>客户审核人</td>
-			    <td> 
-					<select type="text" id="kh_check" name="kh_check"/>
-						{$ulist, $kh_check.id|getUserList}
-					</select>
-				</td>
-			</tr>
-			<tr>
-			    <td>描述</td>
+			    <td>注释</td>
 			    <td><textarea type="text" id="desc" name="desc"/>{$flow.description}</textarea></td>
 			</tr>
 		</tbody>
 	</table>
 		<div class="action">
-			<input class="btn default" type="submit" value="保 存" />
+			<input class="btn default" type="submit" value="提 交" />
 		</div>
 	</form>
 </div>

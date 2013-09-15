@@ -16,33 +16,21 @@
 			<tr>
 			    <td>发包审核人* 
 					<select type="text" id="fb_check" name="fb_check"  check="require"/>
-						<volist name="ulist" id="u">
-							<option value="{$u['id']}">
-								{$u['emp_no']}
-							</option>
-						</volist>
+						{$ulist|getUserList}
 					</select>
 				</td>
 			</tr>
 			<tr>
 			    <td>初样审核人* 
 					<select type="text" id="cy_check" name="cy_check"  check="require"/>
-						<volist name="ulist" id="u">
-							<option value="{$u['id']}">
-								{$u['emp_no']}
-							</option>
-						</volist>
+						{$ulist|getUserList}
 					</select>
 				</td>
 			</tr>
 			<tr>
 			    <td>客户审核人* 
 					<select type="text" id="kh_check" name="kh_check"  check="require"/>
-						<volist name="ulist" id="u">
-							<option value="{$u['id']}">
-								{$u['emp_no']}
-							</option>
-						</volist>
+						{$ulist|getUserList}
 					</select>
 				</td>
 			</tr>

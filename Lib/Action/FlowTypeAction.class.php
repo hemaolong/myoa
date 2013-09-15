@@ -51,9 +51,9 @@ class FlowTypeAction extends CommonAction {
 		$this->assign("flow_id", $id);
 		$this->assign("state", getFlowStateById($f_m['state']));
 		$this->assign("history", $history);
-		$this->assign("fb_check_name", $fb_check_name['emp_no']);
-		$this->assign("cy_check_name", $cy_check_name['emp_no']);
-		$this->assign("kh_check_name", $kh_check_name['emp_no']);
+		$this->assign("fb_check", $fb_check_name);
+		$this->assign("cy_check", $cy_check_name);
+		$this->assign("kh_check", $kh_check_name);
 	}
 	
 	function _before_edit(){
@@ -61,21 +61,35 @@ class FlowTypeAction extends CommonAction {
 		$where_f['id'] = $id;
 		$model =  M('flow_type');
 		$f_m = $model->where($where_f)->find();
-		$fb_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['fb_check']))->find();
-		$cy_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['cy_check']))->find();
-		$kh_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['kh_check']))->find();
+		$fb_check_name = D('user')->field('emp_no, id')->where(array('id' => $f_m['fb_check']))->find();
+		$cy_check_name = D('user')->field('emp_no, id')->where(array('id' => $f_m['cy_check']))->find();
+		$kh_check_name = D('user')->field('emp_no, id')->where(array('id' => $f_m['kh_check']))->find();
 		
 		$this->assign("flow", $f_m);
 		$this->assign("flow_id", $id);
 		$this->assign("state", getFlowStateById($f_m['state']));
-		$this->assign("fb_check_name", $fb_check_name['emp_no']);
-		$this->assign("cy_check_name", $cy_check_name['emp_no']);
-		$this->assign("kh_check_name", $kh_check_name['emp_no']);
+		$this->assign("fb_check", $fb_check_name);
+		$this->assign("cy_check", $cy_check_name);
+		$this->assign("kh_check", $kh_check_name);
 		
 		$u_model = D('user');
 		$user_list = $u_model->field('emp_no, id')->select();
 		$this->assign("ulist", $user_list);
 	}
+	
+	function switch_state(){
+		$id = $_REQUEST["id"];dump($_REQUEST);
+		$where_f['id'] = $id;
+		$model =  M('flow_type');
+		$f_m = $model->where($where_f)->find();
+		
+		$this->assign("flow", $f_m);
+		$this->assign("flow_id", $id);
+		$this->assign("state", getFlowStateById($f_m['state']));
+		
+		$this->display();
+	}
+
 
 	function add() {
 		$model = D('user');
@@ -113,7 +127,12 @@ class FlowTypeAction extends CommonAction {
 		}
 	}
 	
-	function update() {
+	function submit_switch(){
+		dump('submit switch ok');
+	}
+	
+	function submit_update() {
+	dump('update ok');return;
 		$id = $_POST['id'];
 		$model = D("FlowType");
 		if (false === $model -> create()) {

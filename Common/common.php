@@ -1057,12 +1057,29 @@ function mb_unserialize(&$serial_str) {
 	return unserialize($out);
 
 }
+
+function getValueField($item, $v){
+    if ($v != null) return $item[$v];
+	return $item['value'];
+}
+
+function getLabelField($item, $l){
+	if ($l != null) return $item[$l];
+	return $item['label'];
+}
+
 // Add by heml
-function getOptionList(&$list){
+function getOptionList(&$list, $selected, $v, $l){
 	$options = '';
+	$selected_str = 'selected = selected';
 	for ($i = 0, $c = count($list); $i < $c; $i++){
 		$e = $list[$i];
-		$options .= sprintf('<option value=%s >%s</option>', $e['value'], $e['label']);
+		$cur_value = getValueField($e, $v);
+		$cur_label = getLabelField($e, $l);
+		$options .= sprintf('<option value=%s %s>%s</option>', 
+			$cur_value == $selected? $selected_str: '',
+			$cur_value, $cur_label);
+			
 	}
 	return $options;
 }
@@ -1152,6 +1169,10 @@ function getPriorityList(){
 	return getOptionList($list);
 }
 
+function getUserList($list, $select){
+    return getOptionList($list, $select, 'id', 'emp_no');
+}
+
 function getPriorityOption($value){
 	$list = getPrioritys();
 	return getOption($list);
@@ -1179,4 +1200,7 @@ function getHistoryOptTypeById($type){
 	 }
   }
 }
+
+
+
 ?>
