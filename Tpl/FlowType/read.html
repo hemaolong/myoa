@@ -39,7 +39,7 @@
 		</table>
 		<div class="action">
 		    <a href="{:U('edit?id='.$flow_id)}" class="btn default">修改</a>
-			<a href="{:U('switch_state?id='.$flow_id.'&to_state='.$form_data.to_state)}" class="btn default" type=submit>修改状态为</a>
+			<a href="{:U('switch_state?id='.$flow_id.'&to_state='.$form_data.to_state)}" id="modify" class="btn default" type=submit>修改状态为</a>
 			<select type="text" id="to_state" name="to_state">
 				{$state.value|getNextStateList}
 			</select>
@@ -81,4 +81,7 @@
 		});
 		
     });
+	$("#modify").click(function(){
+		window.open("switch_state?id={$flow_id}&to_date="+$("#to_date").val());
+	});
 </script>
