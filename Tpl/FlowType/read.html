@@ -2,7 +2,7 @@
 <tagLib name="html" />
 <div class="contact">
 	<div class="row-fluid title"><span></span></div>
-	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('flowType/insert')}">
+	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 			<thead>
 				<tr>
@@ -39,7 +39,7 @@
 		</table>
 		<div class="action">
 		    <a href="{:U('edit?id='.$flow_id)}" class="btn default">修改</a>
-			<a href="{:U('switch_state?id='.$flow_id.'&to_state='.$form_data.to_state)}" id="modify" class="btn default" type=submit>修改状态为</a>
+			<input class="btn default" id="modify" value="修改状态为" onclick="on_switch();"/>
 			<select type="text" id="to_state" name="to_state">
 				{$state.value|getNextStateList}
 			</select>
@@ -72,16 +72,7 @@
 <script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
 <script type="text/javascript" src="__PUBLIC__/editor/kindeditor.setting.js"></script>
 <script type="text/javascript">	
-	$(document).ready(function(){
-		$('#form_data').bind('submit', function(){
-			ajaxSubmit(this, function(data){
-				//alert('提交成功');
-			});
-			return false;
-		});
-		
-    });
-	$("#modify").click(function(){
-		window.open("switch_state?id={$flow_id}&to_date="+$("#to_date").val());
-	});
+	function on_switch(){
+		window.open(fix_url("{:U('switch_state')}?id={$flow_id}&to_state="+$("#to_state").val()), "_self");
+	};
 </script>

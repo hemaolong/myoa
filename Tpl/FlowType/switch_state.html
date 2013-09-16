@@ -3,6 +3,8 @@
 <div class="contact">
 	<div class="row-fluid title"><span>编辑</span></div>
 	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('flowType/submit_switch')}">
+		<input type="hidden" id="to_state" name="to_state" value="{$to_state}">
+		<input type="hidden" id="flow_id" name="flow_id" value="{$flow_id}">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 		<thead>
 			<tr>
@@ -23,18 +25,18 @@
 			</tr>
 			<tr>
 			    <td width = 40>当前状态</td>
-				<td width="60">{$state.label}</td>
-				<td>切换为</td>
-				<td>{$state.label}</td>
+				<td width = 360 >{$state.label}</td>
+				<td width = 120>切换为</td>
+				<td value=12>{$to_state_label}</td>
 			</tr>
 			
 			<tr>
 			    <td>输入文档</td>
-			    <td><textarea type="text" id="desc" name="desc"/>{$flow.description}</textarea></td>
+			    <td><textarea type="text" id="input_doc" name="input_doc"/></textarea></td>
 			</tr>
 			<tr>
 			    <td>注释</td>
-			    <td><textarea type="text" id="desc" name="desc"/>{$flow.description}</textarea></td>
+			    <td><textarea type="text" id="comment" name="comment"/></textarea></td>
 			</tr>
 		</tbody>
 	</table>
@@ -50,7 +52,7 @@
 	$(document).ready(function(){
 		$('#form_data').bind('submit', function(){
 			ajaxSubmit(this, function(data){
-				//alert('提交成功');
+				alert('提交成功');
 			});
 			return false;
 		});

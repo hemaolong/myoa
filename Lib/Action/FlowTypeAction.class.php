@@ -78,16 +78,29 @@ class FlowTypeAction extends CommonAction {
 	}
 	
 	function switch_state(){
-		$id = $_REQUEST["id"];dump($_REQUEST);
+		$id = $_REQUEST["id"];
+		$to_state = $_REQUEST["to_state"];
+		$to_state_label = getFlowStateById($to_state);
 		$where_f['id'] = $id;
 		$model =  M('flow_type');
 		$f_m = $model->where($where_f)->find();
 		
+		
 		$this->assign("flow", $f_m);
 		$this->assign("flow_id", $id);
+		$this->assign("to_state", $to_state);
+		$this->assign("to_state_label", $to_state_label['label']);
 		$this->assign("state", getFlowStateById($f_m['state']));
-		
 		$this->display();
+	}
+	
+	function submit_switch(){
+        $flow_id = $_REQUEST["flow_id"];
+		$where_f['id'] = $flow_id;
+		$model =  M('flow_type');
+		$f_m = $model->where($where_f)->find();
+		
+		dump($f_m);
 	}
 
 
@@ -125,10 +138,6 @@ class FlowTypeAction extends CommonAction {
 			//失败提示
 			$this -> error('新增失败!');
 		}
-	}
-	
-	function submit_switch(){
-		dump('submit switch ok');
 	}
 	
 	function submit_update() {
