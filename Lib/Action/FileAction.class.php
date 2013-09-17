@@ -41,7 +41,7 @@ class FileAction extends CommonAction {
 	}
 
 	// 文件上传
-	private function _upload() {
+	private function _uplfsdfsdfoad() {
 		import("@.ORG.Util.UploadFile");
 		$module = strtolower($_REQUEST["module"]);
 		$upload = new UploadFile();
@@ -50,6 +50,7 @@ class FileAction extends CommonAction {
 		$upload -> saveRule = uniqid;
 		$upload -> autoSub = true;
 		$upload -> subType = "date";
+		dump($upload);
 
 		if (!$upload -> upload()) {
 			$this -> error($upload -> getErrorMsg());

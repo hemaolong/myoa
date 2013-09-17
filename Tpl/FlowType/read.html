@@ -2,11 +2,13 @@
 <tagLib name="html" />
 <div class="contact">
 	<div class="row-fluid title"><span></span></div>
-	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data">
+	<form method='post' id="form_data" enctype="multipart/form-data" action="{:U('flowType/upload')}">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 			<thead>
 				<tr>
 					<td width="140"> </td>
+					<td> </td>
+					<td> </td>
 					<td> </td>
 				</tr>
 			</thead>
@@ -34,6 +36,12 @@
 				<tr>
 					<td>描述</td>
 					<td>{$flow.description}</td>
+				</tr>
+				<tr>
+					<td>文档</td>
+					<td>{$flow.description}</td>
+					<td><input type="file"  name="file1"></td>
+					<td><input class="btn default" type="submit" value="上传文件" /><td>
 				</tr>
 			</tbody>
 		</table>
