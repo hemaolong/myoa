@@ -41,7 +41,7 @@ class FileAction extends CommonAction {
 	}
 
 	// 文件上传
-	private function _uplfsdfsdfoad() {
+	private function _upload() {
 		import("@.ORG.Util.UploadFile");
 		$module = strtolower($_REQUEST["module"]);
 		$upload = new UploadFile();

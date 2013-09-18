@@ -46,6 +46,10 @@ class FlowTypeAction extends CommonAction {
 		$kh_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['kh_check']))->find();
 		//dump($fb_check_name);
 		
+		// Read the attachement
+		$attach_list = M('file')->field('id, name, create_time')->where(array('project_id' => $id))->select();
+		$this->assign('file_list', $attach_list);
+		
 		$history = D("ProjectHistory")->getHistory($id);
 		$this->assign("flow", $f_m);
 		$this->assign("flow_id", $id);
@@ -54,6 +58,10 @@ class FlowTypeAction extends CommonAction {
 		$this->assign("fb_check", $fb_check_name);
 		$this->assign("cy_check", $cy_check_name);
 		$this->assign("kh_check", $kh_check_name);
+	}
+	
+	function delete_attach(){
+		dump("delete ok!");
 	}
 	
 	function _before_edit(){
@@ -190,7 +198,7 @@ class FlowTypeAction extends CommonAction {
 		$upload -> subType = "date";
 		
 
-		if (!$upload -> upload()) {dump($upload -> getErrorMsg());
+		if (!$upload -> upload()) {
 			$this -> error($upload -> getErrorMsg());
 		} else {
 			//取得成功上传的文件信息
@@ -198,6 +206,7 @@ class FlowTypeAction extends CommonAction {
 			$File = M("File");
 			$File -> create($uploadList[0]);
 			$File -> create_time = time();
+			$File -> project_id = $_REQUEST["flow_id"]
 			$user_id = get_user_id();
 			$File -> user_id = $user_id;
 			$fileId = $File -> add();
