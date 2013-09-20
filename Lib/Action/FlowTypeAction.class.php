@@ -10,16 +10,19 @@ class FlowTypeAction extends CommonAction {
 	}
 
 	function index(){
+		$state = $_REQUEST['state'];
 		$model = M("FlowType");
-		$map = $this -> _search();
+		$map = $this->_search();
 		if (method_exists($this, '_search_filter')) {
 			$this -> _search_filter($map);
+		}
+		if (!empty($state)){
+			$map['state'] = $state;
 		}
 		$list = $model -> where($map) -> select();
 		$this -> assign('list', $list);
 		$this -> group_list();
 		$this -> display();
-		return;
 	}
 
 	function mark() {
@@ -40,19 +43,22 @@ class FlowTypeAction extends CommonAction {
 		$id = $_REQUEST["id"];
 		$where_f['id'] = $id;
 		$f_m = M('flow_type')->where($where_f)->find();
-		// dump($f_m);
+
 		$fb_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['fb_check']))->find();
 		$cy_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['cy_check']))->find();
 		$kh_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['kh_check']))->find();
-		//dump($fb_check_name);
-		
+
 		// Read the attachement
 		$attach_list = M('file')->field('id, name, create_time, size')
 			->where(array('is_del' => 0, 'project_id' => $id))
 			->select();
 		$this->assign('file_list', $attach_list);
-		// dump($id);
-		// dump($attach_list);
+		
+		// Comment
+		$comment_list = D('Comment')->getComment($id);
+		$this->assign('comment_list', $comment_list);
+		//dump($comment_list);
+
 		
 		$history = D("ProjectHistory")->getHistory($id);
 		$this->assign("flow", $f_m);
@@ -132,7 +138,7 @@ class FlowTypeAction extends CommonAction {
 		$model->fb_check = $_POST['fb_check'];
 		$model->fb_check = $_POST['fb_check'];
 		$model->kh_check = $_POST['kh_check'];
-		$model->state = 10;
+		$model->state = 9;
 		
 		$model -> creator = $user_name;
 		//保存当前数据对象
@@ -198,6 +204,25 @@ class FlowTypeAction extends CommonAction {
 		$f_m = $model->save();
 		
 		$this->success ('操作成功！');
+	}
+	
+	public function addComment(){
+	    $flow_id = $_POST["flow_id"];
+		$comment =  $_POST["comment"];
+
+		if (empty($comment)){
+			$this -> error('注释不能为空!');
+			return;
+		}
+		
+		D('Comment')->addComment($flow_id, $comment);
+		$this -> success('操作成功!');
+	}
+	
+	public function delete_comment(){
+		$id = $_REQUEST["id"];
+		D('Comment')->delete_comment($id);
+		$this -> success('删除成功!');
 	}
 
 	public function upload() {

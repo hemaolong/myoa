@@ -44,7 +44,8 @@
 								'OPT_FILE_ADD' => array(40, "添加文档"),
 								'OPT_FILE_DEL' => array(41, "删除文档"),
 								'OPT_COMMENT_ADD' => array(50, "添加注释"),
-								'OPT_COMMENT_EDIT' => array(31, "修改注释"),
+								'OPT_COMMENT_EDIT' => array(51, "修改注释"),
+								'OPT_COMMENT_DEL' => array(52, "删除注释"),
 							),
 		);
     return $array;

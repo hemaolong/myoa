@@ -1097,6 +1097,7 @@ function getOption(&$list){
 function getFlowStates(){
     // value 不能修改
 	$l = array(
+	    array('value' => 9, 'label' => '草稿'), 
 		array('value' => 10, 'label' => '立项'), 
 		array('value' => 11, 'label' => '终止'), 
 		array('value' => 20, 'label' => '申请编码'), 
@@ -1128,6 +1129,7 @@ function getFlowStateById($id){
 
 function getNextState($state){
     $l = array(
+	    '9' => array(11, 10),
 	    '10' => array(11, 20),
 		'11' => array(11, 30),
 		'20' => array(11, 40),

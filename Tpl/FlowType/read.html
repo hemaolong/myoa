@@ -2,8 +2,6 @@
 <tagLib name="html" />
 <div class="contact">
 	<div class="row-fluid title"><span></span></div>
-	<form method='post' id="form_data" enctype="multipart/form-data" action="{:U('flowType/upload')}">
-		<input type="hidden" id="flow_id" name="flow_id" value="{$flow_id}">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 			<thead>
 				<tr>
@@ -41,17 +39,32 @@
 				<tr>
 					<td>文档</td>
 					<td>
-						<table>
-						<volist name="file_list" id="f">
-							<tr>
-								<td>{$f.name}
-									{$f.create_time|toDate}
-									({$f.size} bytes)
-									<a href="{:U('delete_attach', 'id='.$f['id'])}" class="btn default">删除</a>
-								</td>
+						<table class="tab">
+							<volist name="file_list" id="f">
+								<tr>
+									<td>{$f.name}
+										{$f.create_time|toDate}
+										({$f.size} bytes)
+										<a href="{:U('delete_attach', 'id='.$f['id'])}" class="btn default">删除</a>
+									</td>
 
-							</tr>
-						</volist>
+								</tr>
+							</volist>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>注释</td>
+					<td>
+						<table class="tab">
+							<volist name="comment_list" id="c">
+								<tr>
+									<td>
+										{$c.content}
+										<a href="{:U('delete_comment', 'id='.$c['id'])}" class="btn default">删除</a>
+									</td>
+								</tr>
+							</volist>
 						</table>
 					</td>
 				</tr>
@@ -66,32 +79,46 @@
 		</div>
 		
 		<div class="row-fluid title"><span>上传文档</span></div>
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
-			<tbody>
-                <tr>
-					<td>上传文档</td>
-					<td><input type="file"  name="file1"></td>
-					<td><input class="btn default" type="submit" value="上传文档" /><td>
-				</tr>			
-			</tbody>
-		</table>
+		<form method='post' id="attach_form" enctype="multipart/form-data" action="{:U('upload')}">
+			<input type="hidden" id="flow_id" name="flow_id" value="{$flow_id}">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+				<tbody>
+					<tr>
+						<td>上传文档</td>
+						<td><input type="file"  name="file1"></td>
+						<td><input class="btn default" type="submit" value="上传文档" /><td>
+					</tr>			
+				</tbody>
+			</table>
+		</form>
 		
 		<div class="row-fluid title"><span>添加注释</span></div>
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
-			<tbody>
-                <tr>
-					<td>注释</td>
-					<td>
-						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
-							<tbody>
-							    <tr>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>			
-			</tbody>
+		<form method='post' id="comment_form" enctype="multipart/form-data" action="{:U('addComment')}">
+			<input type="hidden" id="flow_id" name="flow_id" value="{$flow_id}">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+				<tbody>
+					<tr>
+						<td>注释</td>
+						<td>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+								<tbody>
+									<tr width="100%">
+										<td width="100%">
+											<textarea type="text" id="comment" name="comment"/></textarea>
+										</td>
+									</tr>
+									<tr width="100%">
+										<td>
+											<input class="btn default" type="submit" value="添加注释" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>			
+				</tbody>
 		</table>
+		</form>
 		
 		<div class="row-fluid title"><span>历史</span></div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
@@ -114,7 +141,6 @@
 				</volist>
 			</tbody>
 		</table>
-	</form>
 </div>
 
 <script type="text/javascript" src="__PUBLIC__/editor/kindeditor.js"></script>
