@@ -40,16 +40,20 @@
 				</tr>
 				<tr>
 					<td>文档</td>
-					<volist name="file_list" id="f">
-						<tr>
-							<td>{$f.name}
-								{$f.create_time|toDate}
-								({$f.size}bytes)
-								<a href="{:U('delete_attach?id='.$f.id)}" class="btn default">删除</a>
-							</td>
+					<td>
+						<table>
+						<volist name="file_list" id="f">
+							<tr>
+								<td>{$f.name}
+									{$f.create_time|toDate}
+									({$f.size} bytes)
+									<a href="{:U('delete_attach', 'id='.$f['id'])}" class="btn default">删除</a>
+								</td>
 
-						</tr>
-					</volist>
+							</tr>
+						</volist>
+						</table>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -104,8 +108,8 @@
 					<tr align="center">
 						<td>{$h['opt_date']|toDate}</td>
 						<td>{$h['emp_no']}</td>
-						<td>{$h['opt_type']|getHistoryOptTypeById}</td>
-						<td>{$h['param']}</td>
+						<td>{$h['opt_type']|getHistoryOptLabelById}</td>
+						<td>{$h|getHistoryChg}</td>
 					</tr>
 				</volist>
 			</tbody>
@@ -119,4 +123,5 @@
 	function on_switch(){
 		window.open(fix_url("{:U('switch_state')}?id={$flow_id}&to_state="+$("#to_state").val()), "_self");
 	};
+
 </script>

@@ -17,6 +17,7 @@ class ProjectHistoryModel extends CommonModel {
 		$h = $this->join($join)
 			->where(array('project_id' => $project_id))
 			->field('h.id, u.emp_no, h.user_id, u.id, project_id, opt_date, opt_type, old_value, new_value')
+			->order('opt_date DESC')
 			->select();//dump($this);
 		return $h;
 	}

@@ -40,15 +40,19 @@ class FlowTypeAction extends CommonAction {
 		$id = $_REQUEST["id"];
 		$where_f['id'] = $id;
 		$f_m = M('flow_type')->where($where_f)->find();
-		
+		// dump($f_m);
 		$fb_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['fb_check']))->find();
 		$cy_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['cy_check']))->find();
 		$kh_check_name = D('user')->field('emp_no')->where(array('id' => $f_m['kh_check']))->find();
 		//dump($fb_check_name);
 		
 		// Read the attachement
-		$attach_list = M('file')->field('id, name, create_time')->where(array('project_id' => $id))->select();
+		$attach_list = M('file')->field('id, name, create_time, size')
+			->where(array('is_del' => 0, 'project_id' => $id))
+			->select();
 		$this->assign('file_list', $attach_list);
+		// dump($id);
+		// dump($attach_list);
 		
 		$history = D("ProjectHistory")->getHistory($id);
 		$this->assign("flow", $f_m);
@@ -61,7 +65,12 @@ class FlowTypeAction extends CommonAction {
 	}
 	
 	function delete_attach(){
-		dump("delete ok!");
+		$id = $_REQUEST["id"];
+		$model = D("File");
+		$model->id = $id;
+		$model->is_del = 1;
+		$model->save();		
+		$this->success ('删除成功！');
 	}
 	
 	function _before_edit(){
@@ -138,17 +147,28 @@ class FlowTypeAction extends CommonAction {
 		}
 	}
 	
-	function submit_update() {
-	
-		$id = $_POST['id'];
-		$model = D("FlowType");
-		dump('update ok');return;
-		if (false === $model -> create()) {
-			$this -> error($model -> getError());
+	private function fillUpdateField($model, $old, $field){
+		if ($_POST[$field] != 'selected' && $old[$field] != $_POST[$field]){
+			$model->$field = $_POST[$field];
 		}
+	}
+	
+	function submit_update() {
+		$id = $_POST['flow_id'];
+		$old = M('FlowType')->field('name, fb_check, cy_check, kh_check, description')->where(array('id' => $id))->find();		
 		// 更新数据
-
-		$list = $model -> save();
+		$model = D("FlowType");
+		$model->id = $id;
+		$this->fillUpdateField($model, $old, 'name');
+		$this->fillUpdateField($model, $old, 'desc');
+		$this->fillUpdateField($model, $old, 'fb_check');
+		$this->fillUpdateField($model, $old, 'cy_check');
+		$this->fillUpdateField($model, $old, 'kh_check');
+		
+		//dump($_POST);
+		
+		
+		$list = $model->save();
 		if (false !== $list) {
 			//成功提示
 			$this -> assign('jumpUrl', get_return_url());
@@ -172,9 +192,9 @@ class FlowTypeAction extends CommonAction {
 		
         $flow_id = $_REQUEST["flow_id"];
 		$where_f['id'] = $flow_id;
-		$model =  M('flow_type');
+		$model =  D('FlowType');
 		$model->id = $flow_id;
-		$model->__set('state', $_REQUEST['to_state']);
+		$model->state = $_REQUEST['to_state'];
 		$f_m = $model->save();
 		
 		$this->success ('操作成功！');
@@ -203,10 +223,10 @@ class FlowTypeAction extends CommonAction {
 		} else {
 			//取得成功上传的文件信息
 			$uploadList = $upload -> getUploadFileInfo();
-			$File = M("File");
+			$File = D("File");
 			$File -> create($uploadList[0]);
 			$File -> create_time = time();
-			$File -> project_id = $_REQUEST["flow_id"]
+			$File -> project_id = $_REQUEST["flow_id"];
 			$user_id = get_user_id();
 			$File -> user_id = $user_id;
 			$fileId = $File -> add();
@@ -217,7 +237,7 @@ class FlowTypeAction extends CommonAction {
 			$fileInfo['url'] = $fileInfo['savepath'] . $fileInfo['savename'];
 
 			//header("Content-Type:text/html; charset=utf-8");
-			exit(json_encode($fileInfo));
+			//exit(json_encode($fileInfo));
 			$this->success ('上传成功！');
 		}
 	}

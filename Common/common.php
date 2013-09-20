@@ -194,7 +194,7 @@ function agey($age) {
 	return $year;
 }
 
-function toDate($time, $format = 'Y-m-d H:i:s') {
+function toDate($time, $format = 'Y-m-d H:i') {
 	if (empty($time)) {
 		return '';
 	}
@@ -1196,9 +1196,40 @@ function getHistoryOptTypeById($type){
 	 $key = $typeKeys[$i];
 	 $value = $history_opt_type[$key];
 	 if ($value[0] == $type){
-		return $value[1];
+		return $value;
 	 }
   }
+}
+
+function getHistoryOptLabelById($type){
+  $t = getHistoryOptTypeById($type);
+  return $t[1];
+}
+
+function getHistoryChg($h){
+	$from = $h['old_value'];
+	$to = $h['new_value'];
+	$type = getHistoryOptTypeById($h['opt_type']);
+	//$type = $type[1];
+	//dump($type);
+	switch ($h['opt_type']){
+		case 6:
+		case 7:
+		case 8:
+			$from = M('User')->field('emp_no')->where(array('id' => $from))->find();
+			$from = $from['emp_no'];
+			$to = M('User')->field('emp_no')->where(array('id' => $to))->find();
+			$to = $to['emp_no'];
+			
+			break;
+		case 3:
+			$from = getFlowStateById($from);
+			$to = getFlowStateById($to);
+			$from = $from['label'];
+			$to = $to['label'];
+			break;
+	}
+	return $from . " => " . $to;
 }
 
 

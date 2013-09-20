@@ -3,6 +3,7 @@
 <div class="contact">
 	<div class="row-fluid title"><span>编辑</span></div>
 	<form method='post' id="form_data" name="form_data" enctype="multipart/form-data" action="{:U('flowType/submit_update')}">
+		<input type="hidden" id="flow_id" name="flow_id" value="{$flow_id}">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 		<thead>
 			<tr>
@@ -25,7 +26,7 @@
 			</tr>
 			<tr>
 			    <td>发包审核人 </td>
-			    <td>
+			    <td>{$ulist, $fb_check.id|getUserList}
 					<select type="text" id="fb_check" name="fb_check"/>
 						{$ulist, $fb_check.id|getUserList}
 					</select>

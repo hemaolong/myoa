@@ -34,7 +34,17 @@
 		'HISTORY_OPT_TYPE' => array('OPT_NEW' => array(1, "立项"),
 								'OPT_CANCEL' => array(2, "终止"),
 								'OPT_CHG_STATE' => array(3, "修改状态"),
-								'OPT_CLOSE' => array(10, "结案"),
+								'OPT_PROJ_NAME_CHG' => array(4, "修改名称"),
+								'OPT_PROJ_DESC_CHG' => array(5, "修改描述"),
+								'OPT_PROJ_FB_CHK_CHG' => array(6, "发包审核"),
+								'OPT_PROJ_CY_CHK_CHG' => array(7, "初样审核"),
+								'OPT_PROJ_KH_CHK_CHG' => array(8, "客户审核"),
+								
+								'OPT_CLOSE' => array(30, "结案"),
+								'OPT_FILE_ADD' => array(40, "添加文档"),
+								'OPT_FILE_DEL' => array(41, "删除文档"),
+								'OPT_COMMENT_ADD' => array(50, "添加注释"),
+								'OPT_COMMENT_EDIT' => array(31, "修改注释"),
 							),
 		);
     return $array;

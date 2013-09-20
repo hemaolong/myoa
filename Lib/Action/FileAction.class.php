@@ -50,7 +50,7 @@ class FileAction extends CommonAction {
 		$upload -> saveRule = uniqid;
 		$upload -> autoSub = true;
 		$upload -> subType = "date";
-		dump($upload);
+		//dump($upload);
 
 		if (!$upload -> upload()) {
 			$this -> error($upload -> getErrorMsg());
