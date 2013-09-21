@@ -558,7 +558,7 @@ function sub_tree_menu($tree, $level = 0) {
 	}
 	return $html;
 }
-
+/*
 function folder_tree_menu($tree, $level = 0) {
 	$level++;
 	$html = "";
@@ -584,7 +584,7 @@ function folder_tree_menu($tree, $level = 0) {
 	}
 	return $html;
 }
-
+*/
 function dropdown_menu($tree, $level = 0) {
 	$level++;
 	$html = "";

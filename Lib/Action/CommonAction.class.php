@@ -327,6 +327,7 @@ class CommonAction extends Action {
 		$model = D("Node");
 		$top_menu = cookie('top_menu');
 		$user_id = get_user_id();
+		/*
 		$top_menu_list = session('top_menu' . $user_id);
 		if (!empty($top_menu_list)) {
 			$list = $top_menu_list;
@@ -337,8 +338,10 @@ class CommonAction extends Action {
 				$this -> error("没有权限");
 			}
 			session('top_menu' . $user_id, $list);
-		}
-
+		}*/
+		$list = $model -> get_top_menu();
+		session('top_menu' . $user_id, $list);
+		
 		$this -> assign('list_top_menu', $list);
 
 		//读取数据库模块列表生成菜单项

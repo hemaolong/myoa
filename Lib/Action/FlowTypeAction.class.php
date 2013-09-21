@@ -13,11 +13,18 @@ class FlowTypeAction extends CommonAction {
 		$state = $_REQUEST['state'];
 		$model = M("FlowType");
 		$map = $this->_search();
+		$user_id = get_user_id();
 		if (method_exists($this, '_search_filter')) {
 			$this -> _search_filter($map);
 		}
 		if (!empty($state)){
-			$map['state'] = $state;
+			switch($state){
+				case 'draft': $map['state'] = 9;break;
+				case 'checked':{
+					$map['state'] = $state;break;
+				}
+				case 'to_check': $map['state'] = $state;break;
+			}
 		}
 		$list = $model -> where($map) -> select();
 		$this -> assign('list', $list);
