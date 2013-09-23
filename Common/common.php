@@ -241,14 +241,15 @@ function get_view_fields($model) {
 	return $arr_field;
 }
 
-function step_type($step) {
+/* function step_type($step) {
 	if ($step >= 20) {
 		return "裁决";
 	}
 	if ($step >= 30) {
 		return "协商";
 	}
-}
+} */
+/* 
 
 function step($step) {
 	if ($step == 40) {
@@ -272,7 +273,7 @@ function step($step) {
 	if ($step == 0) {
 		return "驳回";
 	}
-}
+} */
 
 function IP($ip = '', $file = 'UTFWry.dat') {
 	$_ip = array();
@@ -1069,29 +1070,32 @@ function getLabelField($item, $l){
 }
 
 // Add by heml
-function getOptionList(&$list, $selected, $v, $l){
+/*
+  params selected: selected option
+          v: the value field
+		  l: the label field
+		  exclude: the exclude values
+*/
+function getOptionList(&$list, $params = array()){
+	$selected = $params['selected'];
+	$v = $params['v'];
+	$l = $params['l'];
+	$exclude = $params['exclude'];
+	
 	$options = '';
 	$selected_str = 'selected = selected';
 	for ($i = 0, $c = count($list); $i < $c; $i++){
 		$e = $list[$i];
 		$cur_value = getValueField($e, $v);
-		$cur_label = getLabelField($e, $l);
-		$options .= sprintf('<option value=%s %s>%s</option>', 
-			$cur_value == $selected? $selected_str: '',
-			$cur_value, $cur_label);
+		if ($exclude == null || $exclude[$_curvalue] == null){
+			$cur_label = getLabelField($e, $l);
+			$options .= sprintf('<option value=%s %s>%s</option>', 
+				$cur_value == $selected? $selected_str: '',
+				$cur_value, $cur_label);
+		}
 			
 	}
 	return $options;
-}
-
-function getOption(&$list){
-	$options = '';
-	for ($i = 0, $c = count($list); $i < $c; $i++){
-		$e = $list[$i];
-		if ($e['value'] == $value){
-			return $e['label'];
-		}
-	}
 }
 
 function getFlowStates(){
@@ -1149,11 +1153,23 @@ function getNextState($state){
 
 function getPrioritys(){
     $l = array(
-		array('value' => 0, 'label' => '设计工程师'), 
-		array('value' => 1, 'label' => '设计主管'), 
-		array('value' => 100, 'label' => '管理员'), 
+		array('key' => 'ROLE_PRI_BUSINESS', 'value' => 10, 'label' => '业务'), 
+		array('key' => 'ROLE_PRI_DESIGN', 'value' => 20, 'label' => '设计工程师'), 
+		array('key' => 'ROLE_PRI_TEST', 'value' => 30, 'label' => '实模工程师'), 
+		array('key' => 'ROLE_PRI_LEADER', 'value' => 40, 'label' => '设计主管'), 
+		array('key' => 'ROLE_PRI_LEADER', 'value' => 50, 'label' => '项目经理'), 
+		array('key' => 'ROLE_PRI_ADMIN', 'value' => 1000, 'label' => '管理员'), 
 	);
 	return $l;
+}
+
+function findArray($l, $field, $value){
+	for ($i = 0; $i < count($l); $i++){
+		$v = $l[$i];
+	    if ($v[$field] == $value){
+			return $v;
+		}
+	}
 }
 
 function getNextStateList($state){
@@ -1166,18 +1182,21 @@ function getNextStateList($state){
 	return $nl;
 }
 
-function getPriorityList(){
+function getPriorityList($exclude){
     $list = getPrioritys();
-	return getOptionList($list);
+	return getOptionList($list, array('exclude' => $exclude));
 }
 
 function getUserList($list, $select){
-    return getOptionList($list, $select, 'id', 'emp_no');
+    return getOptionList($list, array('selected' => $select, 'v' => 'id', 'l' => 'emp_no'));
 }
 
 function getPriorityOption($value){
 	$list = getPrioritys();
-	return getOption($list);
+	$v = findArray($list, 'value', (int)$value);
+	if ($v != null) {
+		return $v['label'];
+	}
 }
 
 function getHistoryOptType($type){

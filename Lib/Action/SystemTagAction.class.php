@@ -1,5 +1,5 @@
 <?php
-class SystemTagAction extends CommonAction {
+/* class SystemTagAction extends CommonAction {
 	protected $config=array('app_type'=>'public');
 		
 	function _search_filter(&$map) {
@@ -59,5 +59,5 @@ class SystemTagAction extends CommonAction {
 		return;
 	}
 
-}
+} */
 ?>

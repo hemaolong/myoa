@@ -8,7 +8,7 @@ class UserAction extends CommonAction {
 			$map['emp_name|emp_no'] = array('like', "%" . $_POST['keyword'] . "%");
 		}
 	}
-
+/* 
 	public function _before_index() {
 		$model = M("Position");
 		$list = $model -> where('is_del=0') -> order('sort asc') -> getField('id,name');
@@ -25,7 +25,7 @@ class UserAction extends CommonAction {
 		$model = M("Rank");
 		$list = $model -> where('is_del=0') -> order('sort asc') -> getField('id,name');
 		$this -> assign('rank_list', $list);
-	}
+	} */
 
 	// 检查帐号
 	public function check_account() {
@@ -43,6 +43,11 @@ class UserAction extends CommonAction {
 			$this -> success('该编码可以使用！');
 		}
 	}
+	
+	public function _before_add(){
+	print('ffffffffffffffffffffffffffff');
+		$this -> assign('exclude', 'ROLE_PRI_ADMIN');
+	}
 
 	// 插入数据
 	public function insert() {
@@ -55,7 +60,7 @@ class UserAction extends CommonAction {
 		$model -> emp_name = $_POST['real_name'];
 		$model -> email = $_POST['email'];
 		$model -> priority = $_POST['priority'];
-		dump($_POST['priority']);
+		$model -> password = md5($_POST['password']);
 		//保存当前数据对象
 		$list = $model -> add();
 		if ($list !== false) {//保存成功

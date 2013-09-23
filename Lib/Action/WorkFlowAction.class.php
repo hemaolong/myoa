@@ -1,6 +1,6 @@
 <?php
 // 后台用户模块
-class WorkFlowAction extends CommonAction {
+/* class WorkFlowAction extends CommonAction {
 	protected $config=array('app_type'=>'master');
 	
 	function _search_filter(&$map) {
@@ -119,5 +119,5 @@ class WorkFlowAction extends CommonAction {
 		exit(json_encode($list));
 	}
 
-}
+} */
 ?>

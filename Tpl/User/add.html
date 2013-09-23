@@ -6,25 +6,30 @@
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
 			<thead>
 				<tr>
+					<td width=140></td>
 					<td></td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>账号* <input type="text" id="name" name="name"  check="require"/></td>
+					<td>账号*</td> <td><input type="text" id="name" name="name"  check="require"/></td>
 				</tr>
 				<tr>
-					<td>真实姓名* <input type="text" id="real_name" name="real_name"  check="require"/></td>
+					<td>真实姓名*</td> <td><input type="text" id="real_name" name="real_name"  check="require"/></td>
 				</tr>
 				<tr>
-					<td>Email* <input type="text" id="email" name="email"  check="require"/></td>
+					<td>Email*</td> <td><input type="text" id="email" name="email"  check="require"/></td>
 				</tr>
 				<tr>
-					<td>存取权限* 
+					<td>存取权限*</td> 
+					<td>
 						<select type="text" id="priority" name="priority"  check="require">
-						    {$dummy|getPriorityList}
+						    {$exclude|getPriorityList}
 						</select>
 					</td>
+				</tr>
+				<tr>
+					<td>密码*</td> <td><input type="password" id="password" name="password"  check="require"/></td>
 				</tr>
 
 			</tbody>

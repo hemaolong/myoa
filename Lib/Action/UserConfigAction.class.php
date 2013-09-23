@@ -1,6 +1,6 @@
 <?php
 class UserConfigAction extends CommonAction {
-	protected $config=array('app_type'=>'personal');
+	/* protected $config=array('app_type'=>'personal');
 	public function index() {
 		$config = M("UserConfig") -> find(get_user_id());
 		$this -> assign("config", $config);
@@ -68,6 +68,6 @@ class UserConfigAction extends CommonAction {
 			$this -> error('编辑失败!');
 		}
 	}
-
+ */
 }
 ?>

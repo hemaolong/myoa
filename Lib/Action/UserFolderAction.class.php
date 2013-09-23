@@ -1,6 +1,6 @@
 <?php
 class UserFolderAction extends CommonAction {
-
+/* 
 	function _search_filter(&$map) {
 		$map['name'] = array('like', "%" . $_POST['name'] . "%");
 		$map['is_del'] = array('eq', '0');
@@ -82,5 +82,5 @@ class UserFolderAction extends CommonAction {
 		$this -> assign('menu', popup_tree_menu($tree));
 		$this -> display("UserFolder:winpop");
 	}
-
+ */
 }
